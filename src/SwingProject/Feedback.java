@@ -6,6 +6,9 @@
 
 package SwingProject;
 import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
 import java.io.File;
 import javax.swing.JOptionPane;
 /**
@@ -36,11 +39,11 @@ public class Feedback extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
+        jCheckBox1 = new javax.swing.JCheckBox("1",false);
+        jCheckBox2 = new javax.swing.JCheckBox("2",false);
+        jCheckBox3 = new javax.swing.JCheckBox("3",false);
+        jCheckBox4 = new javax.swing.JCheckBox("4",false);
+        jCheckBox5 = new javax.swing.JCheckBox("5",false);
         jLabel5 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -79,12 +82,30 @@ public class Feedback extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Is task completed?");
+        
+        
+        jCheckBox1.setText("1");
+        jCheckBox1.setActionCommand("1");
+        
+        jCheckBox1.setText("2");
+        jCheckBox1.setActionCommand("2");
+
+        jCheckBox1.setText("3");
+        jCheckBox1.setActionCommand("3");
+        
+        jCheckBox1.setText("4");
+        jCheckBox1.setActionCommand("4");
+        
+        jCheckBox1.setText("5");
+        jCheckBox1.setActionCommand("5");
+        
+        
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
-        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, 20, -1));
-        jPanel1.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 20, -1));
-        jPanel1.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 20, -1));
-        jPanel1.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 20, -1));
-        jPanel1.add(jCheckBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, 20, -1));
+        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 20, -1));
+        jPanel1.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 20, -1));
+        jPanel1.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 20, -1));
+        jPanel1.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, 20, -1));
+        jPanel1.add(jCheckBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, 20, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setText("Select his work: ");
@@ -93,6 +114,7 @@ public class Feedback extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jRadioButton1.setText("Yes");
+        jRadioButton1.setActionCommand("Yes");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
@@ -103,6 +125,7 @@ public class Feedback extends javax.swing.JFrame {
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jRadioButton2.setText("No");
+        jRadioButton2.setActionCommand("No");
         jRadioButton2.setDoubleBuffered(true);
         jPanel1.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, -1, -1));
 
@@ -131,6 +154,8 @@ public class Feedback extends javax.swing.JFrame {
                 jLabel7MouseClicked(evt);
             }
         });
+ 
+        
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 38, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 700));
@@ -149,6 +174,33 @@ public class Feedback extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+    
+    	
+    	try {
+    		FileWriter fWriter = new FileWriter("feedback.txt",true);
+    		
+    		
+    		StringBuffer sb= new StringBuffer();
+    		
+    		sb.append("\n"+jComboBox1.getSelectedItem());
+    		sb.append(buttonGroup1.getSelection().getActionCommand());
+    		
+    		if(jCheckBox1.isSelected()) sb.append("\n"+jCheckBox1.getText());
+    		if(jCheckBox2.isSelected()) sb.append("\n"+jCheckBox2.getText());
+    		if(jCheckBox3.isSelected()) sb.append("\n"+jCheckBox3.getText());
+    		if(jCheckBox4.isSelected()) sb.append("\n"+jCheckBox4.getText());
+    		if(jCheckBox5.isSelected()) sb.append("\n"+jCheckBox5.getText());
+    		
+    		sb.append("\n"+jTextArea1.getText());
+    		
+    		System.out.println(sb);
+    		
+    		fWriter.write(sb.toString());
+    		
+    		fWriter.close();    	}
+    	catch (IOException e) {
+            System.out.print(e.getMessage());
+        }
         JOptionPane.showMessageDialog(this, "Feedback submitted successfully");
         
     }//GEN-LAST:event_jButton1ActionPerformed
